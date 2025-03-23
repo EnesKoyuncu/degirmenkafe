@@ -21,6 +21,24 @@ const Navbar = () => {
     };
   }, []);
 
+  // Mobil menü açıldığında body scrollunu engelle
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isMenuOpen]);
+
+  // Menüye tıklandığında menüyü kapat
+  const handleMenuClick = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
       <div className="container navbar-container">
@@ -39,6 +57,7 @@ const Navbar = () => {
             type="button"
             className="navbar-menu-button"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "Menüyü Kapat" : "Menüyü Aç"}
           >
             {isMenuOpen ? (
               <svg
@@ -97,19 +116,39 @@ const Navbar = () => {
         className={`navbar-mobile ${isMenuOpen ? "navbar-mobile-open" : ""}`}
       >
         <div className="container">
-          <a href="#anasayfa" className="navbar-mobile-link">
+          <a
+            href="#anasayfa"
+            className="navbar-mobile-link"
+            onClick={handleMenuClick}
+          >
             Ana Sayfa
           </a>
-          <a href="#hakkimizda" className="navbar-mobile-link">
+          <a
+            href="#hakkimizda"
+            className="navbar-mobile-link"
+            onClick={handleMenuClick}
+          >
             Hakkımızda
           </a>
-          <a href="#menu" className="navbar-mobile-link">
+          <a
+            href="#menu"
+            className="navbar-mobile-link"
+            onClick={handleMenuClick}
+          >
             Menü
           </a>
-          <a href="#galeri" className="navbar-mobile-link">
+          <a
+            href="#galeri"
+            className="navbar-mobile-link"
+            onClick={handleMenuClick}
+          >
             Galeri
           </a>
-          <a href="#iletisim" className="navbar-mobile-link">
+          <a
+            href="#iletisim"
+            className="navbar-mobile-link"
+            onClick={handleMenuClick}
+          >
             İletişim
           </a>
         </div>

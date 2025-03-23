@@ -1,60 +1,53 @@
+import "./Footer.css";
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-secondary text-white py-12">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-10">
-          <div className="md:w-1/4 flex flex-col items-center md:items-start">
-            <div className="flex items-center mb-4">
+    <footer className="footer">
+      <div className="footer-container">
+        <div className="footer-content">
+          <div className="footer-brand">
+            <div className="footer-logo-container">
               <img
                 src="/degirmenKafeLogo.png"
                 alt="Değirmen Kafe Logo"
-                className="h-16 mr-3 bg-white p-1 rounded-md"
+                className="footer-logo"
               />
               <span className="text-2xl font-serif font-bold">
                 Değirmen Kafe
               </span>
             </div>
-            <p className="text-gray-300 text-center md:text-left mb-4">
+            <p className="text-gray-300 mb-4">
               Geleneksel değirmencilik ruhunu modern bir kafe konseptiyle
               birleştirerek, misafirlerimize eşsiz bir deneyim sunmayı
               amaçlıyoruz.
             </p>
-            <div className="flex gap-4">
-              <a
-                href="#"
-                className="text-white hover:text-primary transition-colors"
-              >
+            <div className="social-links">
+              <a href="#" className="social-link">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="h-5 w-5"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
                 </svg>
               </a>
-              <a
-                href="#"
-                className="text-white hover:text-primary transition-colors"
-              >
+              <a href="#" className="social-link">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="h-5 w-5"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0 2c-4.411 0-8 3.589-8 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8zm2 6h-4v5h4v-5zm0-3h-4v2h4v-2z" />
                 </svg>
               </a>
-              <a
-                href="#"
-                className="text-white hover:text-primary transition-colors"
-              >
+              <a href="#" className="social-link">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="h-5 w-5"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -64,109 +57,63 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="md:w-1/4">
-            <h3 className="text-lg font-bold mb-4 text-center md:text-left">
-              Hızlı Bağlantılar
-            </h3>
-            <ul className="space-y-2 text-center md:text-left">
+          <div className="footer-section">
+            <h3 className="footer-heading">Hızlı Bağlantılar</h3>
+            <ul className="footer-links">
               <li>
-                <a
-                  href="#anasayfa"
-                  className="text-gray-300 hover:text-primary transition-colors"
-                >
-                  Ana Sayfa
-                </a>
+                <a href="#anasayfa">Ana Sayfa</a>
               </li>
               <li>
-                <a
-                  href="#hakkimizda"
-                  className="text-gray-300 hover:text-primary transition-colors"
-                >
-                  Hakkımızda
-                </a>
+                <a href="#hakkimizda">Hakkımızda</a>
               </li>
               <li>
-                <a
-                  href="#menu"
-                  className="text-gray-300 hover:text-primary transition-colors"
-                >
-                  Menü
-                </a>
+                <a href="#menu">Menü</a>
               </li>
               <li>
-                <a
-                  href="#galeri"
-                  className="text-gray-300 hover:text-primary transition-colors"
-                >
-                  Galeri
-                </a>
+                <a href="#galeri">Galeri</a>
               </li>
               <li>
-                <a
-                  href="#iletisim"
-                  className="text-gray-300 hover:text-primary transition-colors"
-                >
-                  İletişim
-                </a>
+                <a href="#iletisim">İletişim</a>
               </li>
             </ul>
           </div>
 
-          <div className="md:w-1/4">
-            <h3 className="text-lg font-bold mb-4 text-center md:text-left">
-              İletişim
-            </h3>
-            <ul className="space-y-2 text-center md:text-left">
-              <li className="text-gray-300">
-                Atatürk Bulvarı No: 123 <br />
-                Merkez / Antalya
-              </li>
-              <li className="text-gray-300">
-                <a
-                  href="tel:+902421234567"
-                  className="hover:text-primary transition-colors"
-                >
-                  +90 242 123 45 67
-                </a>
-              </li>
-              <li className="text-gray-300">
-                <a
-                  href="mailto:info@degirmenkafe.com"
-                  className="hover:text-primary transition-colors"
-                >
-                  info@degirmenkafe.com
-                </a>
-              </li>
-            </ul>
+          <div className="footer-section">
+            <h3 className="footer-heading">İletişim</h3>
+            <div className="footer-contact-info">
+              <div className="footer-contact-item">
+                <div>
+                  Atatürk Bulvarı No: 123
+                  <br />
+                  Merkez / Antalya
+                </div>
+              </div>
+              <div className="footer-contact-item">
+                <a href="tel:+902421234567">+90 242 123 45 67</a>
+              </div>
+              <div className="footer-contact-item">
+                <a href="mailto:info@degirmenkafe.com">info@degirmenkafe.com</a>
+              </div>
+            </div>
           </div>
 
-          <div className="md:w-1/4">
-            <h3 className="text-lg font-bold mb-4 text-center md:text-left">
-              Çalışma Saatleri
-            </h3>
-            <ul className="space-y-2 text-center md:text-left">
-              <li className="text-gray-300">
-                <span className="text-primary font-medium">
-                  Pazartesi - Cuma:
-                </span>
-                <br />
-                08:00 - 23:00
-              </li>
-              <li className="text-gray-300">
-                <span className="text-primary font-medium">
-                  Cumartesi - Pazar:
-                </span>
-                <br />
-                09:00 - 00:00
-              </li>
-            </ul>
+          <div className="footer-section">
+            <h3 className="footer-heading">Çalışma Saatleri</h3>
+            <div className="footer-schedule">
+              <div className="footer-schedule-item">
+                <span className="footer-schedule-day">Pazartesi - Cuma:</span>
+                <span className="footer-schedule-hours">08:00 - 23:00</span>
+              </div>
+              <div className="footer-schedule-item">
+                <span className="footer-schedule-day">Cumartesi - Pazar:</span>
+                <span className="footer-schedule-hours">09:00 - 00:00</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-700 mt-10 pt-8 text-center">
-          <p className="text-gray-400">
-            &copy; {currentYear} Değirmen Kafe. Tüm Hakları Saklıdır.
-          </p>
+        <div className="footer-copyright">
+          <p>&copy; {currentYear} Değirmen Kafe. Tüm Hakları Saklıdır.</p>
         </div>
       </div>
     </footer>

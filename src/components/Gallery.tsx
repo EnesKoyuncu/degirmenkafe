@@ -9,8 +9,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState("hepsi");
+  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const galleryRef = useRef<HTMLElement>(null);
   const galleryItemsRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const categories = [
     { id: "hepsi", label: "Hepsi" },
@@ -42,7 +44,7 @@ const Gallery = () => {
     },
     {
       id: 3,
-      src: "https://images.unsplash.com/photo-1573254597318-4cda58783d6a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80",
+      src: "https://images.pexels.com/photos/24407406/pexels-photo-24407406/free-photo-of-plaka-tabak-adam-kahve.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
       alt: "Türk Kahvesi",
       category: "kahveler",
     },
@@ -136,6 +138,50 @@ const Gallery = () => {
     }
   }, []);
 
+  // Modal (Lightbox) açma fonksiyonu
+  const openModal = (item: GalleryItem) => {
+    setSelectedImage(item);
+    document.body.style.overflow = "hidden"; // Sayfanın scroll'unu engelle
+
+    // Modal animasyonu
+    if (modalRef.current) {
+      gsap.fromTo(
+        modalRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: "power2.out" }
+      );
+    }
+  };
+
+  // Modal (Lightbox) kapatma fonksiyonu
+  const closeModal = () => {
+    if (modalRef.current) {
+      gsap.to(modalRef.current, {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in",
+        onComplete: () => {
+          setSelectedImage(null);
+          document.body.style.overflow = "auto"; // Scroll'u geri etkinleştir
+        },
+      });
+    }
+  };
+
+  // Escape tuşuna basıldığında modali kapat
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && selectedImage) {
+        closeModal();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedImage]);
+
   return (
     <section id="galeri" className="gallery section" ref={galleryRef}>
       <div className="container">
@@ -159,12 +205,66 @@ const Gallery = () => {
         {/* Galeri Öğeleri */}
         <div className="gallery-items" ref={galleryItemsRef}>
           {filteredItems.map((item) => (
-            <div key={item.id} className="gallery-item">
+            <div
+              key={item.id}
+              className="gallery-item"
+              onClick={() => openModal(item)}
+            >
               <img src={item.src} alt={item.alt} className="gallery-image" />
+              <div className="gallery-item-overlay">
+                <span className="gallery-zoom-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                  </svg>
+                </span>
+              </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      {selectedImage && (
+        <div className="gallery-modal" ref={modalRef}>
+          <div className="gallery-modal-content">
+            <button className="gallery-modal-close" onClick={closeModal}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+            <div className="gallery-modal-image-container">
+              <img
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                className="gallery-modal-image"
+              />
+            </div>
+            <div className="gallery-modal-caption">
+              <p>{selectedImage.alt}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
