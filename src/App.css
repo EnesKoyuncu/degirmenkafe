@@ -1,0 +1,9 @@
+/* App.css dosyası - stil özellikleri index.css'ye taşındı */
+
+/* Basit özel CSS kuralları */
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+/* Tailwind ile temel stillendirmeler yapıldığı için burayı minimal tutuyoruz */
