@@ -18,41 +18,29 @@ interface AnimationOptions {
   scale?: number;
 }
 
+interface FadeInUpOptions {
+  delay?: number;
+  duration?: number;
+  y?: number;
+  ease?: string;
+}
+
 // Yavaşça içeri girme animasyonu
 export const fadeInUp = (
-  element: string | Element,
-  options: AnimationOptions = {}
-) => {
-  const {
-    trigger = element,
-    start = "top 80%",
-    end = "bottom 20%",
-    delay = 0,
-    duration = 0.8,
-    ease = "power2.out",
-    stagger = 0,
-    y = 30,
-  } = options;
+  element: Element,
+  options: FadeInUpOptions = {}
+): gsap.core.Tween => {
+  const { delay = 0, duration = 1, y = 50, ease = "power3.out" } = options;
 
   return gsap.fromTo(
     element,
-    {
-      opacity: 0,
-      y,
-    },
+    { opacity: 0, y },
     {
       opacity: 1,
       y: 0,
-      stagger,
       duration,
       delay,
       ease,
-      scrollTrigger: {
-        trigger,
-        start,
-        end,
-        toggleActions: "play none none reverse",
-      },
     }
   );
 };
@@ -176,39 +164,25 @@ export const zoomIn = (
 
 // Staggered animasyon - grup içindeki elemanları sırayla animasyona sokma
 export const staggerElements = (
-  elements: string | Element,
-  options: AnimationOptions = {}
-) => {
-  const {
-    trigger = elements,
-    start = "top 80%",
-    end = "bottom 20%",
-    delay = 0,
-    duration = 0.5,
-    stagger = 0.1,
-    y = 20,
-    ease = "power2.out",
-  } = options;
+  elements: Element[] | NodeListOf<Element>,
+  options: {
+    staggerTime?: number;
+    delay?: number;
+    from?: "start" | "end" | "center" | "edges" | "random" | [number, number];
+  } = {}
+): gsap.core.Tween => {
+  const { staggerTime = 0.1, delay = 0, from = "start" } = options;
 
   return gsap.fromTo(
     elements,
-    {
-      opacity: 0,
-      y,
-    },
+    { opacity: 0, y: 30 },
     {
       opacity: 1,
       y: 0,
-      stagger,
-      duration,
+      stagger: { amount: elements.length * staggerTime, from },
+      duration: 0.8,
       delay,
-      ease,
-      scrollTrigger: {
-        trigger,
-        start,
-        end,
-        toggleActions: "play none none reverse",
-      },
+      ease: "power2.out",
     }
   );
 };
